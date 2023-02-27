@@ -1,3 +1,4 @@
+import Line from './line.js';
 export default class Vector {
   x: number;
   y: number;
@@ -5,6 +6,10 @@ export default class Vector {
   constructor(x: number, y: number) {
     this.x = x;
     this.y = y;
+  }
+
+  static fromLine(line: Line): Vector {
+    return new Vector(line.end.x - line.start.x, line.end.y - line.start.y);
   }
 
   magnitude() {
@@ -27,5 +32,9 @@ export default class Vector {
 
   crossProduct(other: Vector): number {
     return this.x * other.y - this.y * other.x;
+  }
+
+  toString(): string {
+    return `Vector(${this.x}, ${this.y})`;
   }
 }

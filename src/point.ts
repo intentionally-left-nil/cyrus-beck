@@ -12,4 +12,8 @@ export default class Point {
   equals(other: Point) {
     return this.x === other.x && this.y === other.y;
   }
+
+  toString(): string {
+    return `Point(${this.x},${this.y})`;
+  }
 }
