@@ -1,0 +1,26 @@
+{
+  "name": "cyrus-beck",
+  "version": "0.0.1",
+  "description": "Implementation of the Cyrus-Beck algorithm to clip a line on a convex polygon",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/intentionally-left-nil/cyrus-beck.git"
+  },
+  "keywords": [
+    "clipping",
+    "polygon",
+    "cyrus",
+    "beck",
+    "cyrus-beck"
+  ],
+  "author": "Anil Kulkarni",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/intentionally-left-nil/cyrus-beck/issues"
+  },
+  "homepage": "https://github.com/intentionally-left-nil/cyrus-beck#readme"
+}
