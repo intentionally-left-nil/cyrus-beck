@@ -12,6 +12,10 @@ export default class Vector {
     return new Vector(line.end.x - line.start.x, line.end.y - line.start.y);
   }
 
+  equals(other: Vector) {
+    return this.x === other.x && this.y === other.y;
+  }
+
   magnitude() {
     // a^2 + b^2 = c^2
     return Math.sqrt(this.x ** 2 + this.y ** 2);

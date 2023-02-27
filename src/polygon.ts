@@ -23,4 +23,40 @@ const isConvex = (lines: Array<Line>): boolean => {
   return true;
 };
 
-export { isConvex };
+const closePolygon = (lines: Array<Line>): Array<Line> => {
+  if (lines.length > 1) {
+    const first = lines[0];
+    const last = lines[lines.length - 1];
+    return [...lines, new Line(last.end, first.start)];
+  } else {
+    return lines;
+  }
+};
+
+const normalize = (lines: Array<Line>): Array<Line> =>
+  // Ensure that the polygon is closed
+  // If that already happened, then the degenerate point will get filtered out below
+  closePolygon(lines)
+    // Remove lines which are just points
+    .filter((line) => !line.start.equals(line.end))
+    // Concatenate consecutive lines which have the same slope
+    .reduce((newLines: Array<Line>, line, i, lines) => {
+      // N.B. It's possible to remove the first line
+      // so we need to grab the first _output_ line when wrapping around
+      const nextLine = lines[i + 1] ?? newLines[0];
+      if (!nextLine) {
+        newLines.push(line);
+        // The two lines are on the same path
+        // Maybe they double back, in which case the polygon isn't convex anyways
+        // So just ignore that case and merge the lines
+        // TODO: Handle this better
+      } else if (line.slope() === nextLine.slope()) {
+        // Merge this line into the next line, and drop the current one
+        nextLine.start = line.start;
+      } else {
+        newLines.push(line);
+      }
+      return newLines;
+    }, []);
+
+export { isConvex, normalize };
