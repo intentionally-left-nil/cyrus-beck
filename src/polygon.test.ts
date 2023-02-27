@@ -1,6 +1,6 @@
 import Line from './line';
 import Point from './point';
-import { isConvex, normalize } from './polygon';
+import { isConvex, isValid, normalize, isConnected } from './polygon';
 
 function createPolygon(
   vertices: Array<[number, number]>,
@@ -188,5 +188,56 @@ describe('normalize', () => {
         [2, 4],
       ])
     );
+  });
+});
+
+describe('isConnected', () => {
+  test('a single line is not connected', () => {
+    expect(
+      isConnected(
+        createPolygon(
+          [
+            [0, 0],
+            [1, 0],
+          ],
+          { closePolygon: false }
+        )
+      )
+    ).toBe(false);
+  });
+
+  test('a gap is not connected', () => {
+    expect(
+      isConnected([
+        new Line(new Point(0, 0), new Point(1, 0)),
+        new Line(new Point(2, 0), new Point(0, 0)),
+      ])
+    );
+  });
+
+  test('an open box is not connected', () => {
+    expect(
+      isConnected(
+        createPolygon(
+          [
+            [0, 0],
+            [1, 0],
+            [1, 1],
+          ],
+          { closePolygon: false }
+        )
+      )
+    ).toBe(false);
+  });
+  test('a rectangle is connected', () => {
+    expect(
+      isConnected(
+        createPolygon([
+          [0, 0],
+          [1, 0],
+          [1, 1],
+        ])
+      )
+    ).toBe(true);
   });
 });

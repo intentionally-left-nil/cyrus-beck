@@ -59,4 +59,19 @@ const normalize = (lines: Array<Line>): Array<Line> =>
       return newLines;
     }, []);
 
-export { isConvex, normalize };
+const isConnected = (lines: Array<Line>): boolean => {
+  if (lines.length < 1) {
+    return false;
+  }
+  return lines
+    .map((line, i) => {
+      const nextLine = lines[i + 1] ?? lines[0];
+      return line.end.equals(nextLine.start);
+    })
+    .every(Boolean);
+};
+
+const isValid = (lines: Array<Line>): boolean =>
+  isConvex(lines) && isConnected(lines);
+
+export { isConvex, normalize, isValid, isConnected };
