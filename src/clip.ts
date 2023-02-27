@@ -1,7 +1,7 @@
 import Line from './line.js';
 import { innerNormal } from './normal.js';
 import Point from './point.js';
-import Vector from './vector';
+import Vector from './vector.js';
 
 const clip = (
   polygon: Array<Line>,

@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "test": "tsc && node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "build": "tsc"
+    "build": "tsc",
+    "clean": "rm -rf ./dist",
+    "prepack": "npm run clean && npm run build"
   },
   "repository": {
     "type": "git",
